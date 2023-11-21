@@ -14,6 +14,7 @@ export default {
         colors: {
             "autoconf-blue": "#52c508",
             "autoconf-orange": "#EB9036",
+            "autoconf-lightblue": "#E8F0FD",
         },
         extend: {
             fontFamily: {
