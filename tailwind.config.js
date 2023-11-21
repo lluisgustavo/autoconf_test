@@ -12,7 +12,7 @@ export default {
 
     theme: {
         colors: {
-            "autoconf-blue": "#52c508",
+            "autoconf-blue": "#0852C5",
             "autoconf-orange": "#EB9036",
             "autoconf-lightblue": "#E8F0FD",
         },
