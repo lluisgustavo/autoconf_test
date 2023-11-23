@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\IgnoreSoftDeleted;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreMakeRequest extends FormRequest
@@ -27,7 +26,7 @@ class StoreMakeRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                new IgnoreSoftDeleted('makes', 'name'),
+                'unique:makes',
             ],
             'description' => 'nullable|string',
             'founding_year' => 'nullable|integer|min:1850',
