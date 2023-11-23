@@ -6,8 +6,8 @@ Este projeto é um teste técnico para uma entrevista na Autoconf. O objetivo é
 
 -   [Objetivos do Projeto](#objetivos-do-projeto)
 -   [Tech Stack](#tech-stack)
--   [Práticas de Desenvolvimento](#praticas-de-desenvolvimento)
--   [Configuração/Primeiros Passos](#configuracaoprimeiros-passos)
+-   [Práticas de Desenvolvimento](#práticas-de-desenvolvimento)
+-   [Configuração/Primeiros Passos](#configuracãoprimeiros-passos)
 
 ## Objetivos do Projeto
 
@@ -109,3 +109,31 @@ Isso criará um usuário com o email test@example.com e a senha password.
 Se preferir, você pode registrar um novo usuário através da página de registro.
 
 11. Acesse o aplicativo em [http://localhost:8000](http://localhost:8000).
+
+## Se desejar rodar testes em uma nova database, para manter a integridade dos dados:
+
+1. Copie o arquivo `.env.example` e renomeie para `.env.testing`:
+
+```
+cp .env.example .env
+```
+
+2. Configure as variáveis de ambiente conforme suas configurações do banco de dados.
+
+3. Mude a configuração para .env.testing
+
+```
+php artisan config:cache --env=testing
+```
+
+4. Se necessŕaio, limpe o cache
+
+```
+php artisan cache:clear
+```
+
+Ao terminar e desejar utilizar o banco de dados principal, rode:
+
+```
+php artisan config:cache --env=local
+```
