@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('make_id')->constrained();
-            $table->foreignId('vehicle_model_id')->constrained();
+            $table->foreignId('make_id')->constrained()
+                ->onDelete('cascade');
+            $table->foreignId('vehicle_model_id')
+                ->constrained('vehicle_models')
+                ->onDelete('cascade');
             $table->decimal('price', 10, 2);
             $table->string('image_path');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
