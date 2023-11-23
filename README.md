@@ -12,6 +12,7 @@ Este projeto é um teste técnico para uma entrevista na Autoconf. O objetivo é
 ## Objetivos do Projeto
 
 O objetivo deste projeto é avaliar as habilidades em desenvolvimento web backend de PHP e Laravel.
+Não houve intenção de criar uma solução excessivamente complexa, mas sim demonstrar habilidades sólidas de desenvolvimento.
 
 ## Tech Stack
 
@@ -27,6 +28,8 @@ O objetivo deste projeto é avaliar as habilidades em desenvolvimento web backen
 ## Práticas de Desenvolvimento
 
 -   Conventional Commits: Este projeto segue o formato [Conventional Commits](https://www.conventionalcommits.org/) para mensagens de commit. Isso ajuda a gerar um histórico de commits claro e padronizado.
+
+-   Repository & Service Pattern: A ideia do Repository & Service Pattern é manter a lógica de negócios (services) e o acesso ao banco de dados (repositories) da sua aplicação separadas, mantendo nossos controllers mais legíveis.
 
 ## Configuração/Primeiros Passos
 
