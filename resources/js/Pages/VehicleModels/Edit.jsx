@@ -31,7 +31,9 @@ const VehicleModelsEdit = (props) => {
                 router.visit(route("modelos.index"));
             },
             onError: (error) => {
-                toast.error(error.name);
+                Object.entries(error).forEach(([key, value]) => {
+                    toast.error(value);
+                });
             },
         });
     };
