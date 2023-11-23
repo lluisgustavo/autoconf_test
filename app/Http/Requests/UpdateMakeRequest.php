@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\IgnoreSoftDeleted;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateMakeRequest extends FormRequest
 {
@@ -23,7 +23,7 @@ class UpdateMakeRequest extends FormRequest
     public function rules(): array
     {
         $makeId = $this->route('marca')->id;
-        
+
         return [
             'name' => [
                 'string',

@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\IgnoreSoftDeleted;
+use Illuminate\Foundation\Http\FormRequest;
 
 class StoreVehicleModelRequest extends FormRequest
 {
@@ -28,7 +28,7 @@ class StoreVehicleModelRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                new IgnoreSoftDeleted('vehicle_models', 'name')
+                new IgnoreSoftDeleted('vehicle_models', 'name'),
             ],
             'manufacturing_year' => 'required|integer|min:1850',
             'fuel_type' => 'required|in:Gasolina,Diesel,Elétrico,GNV,Flex,Etanol,Híbrido,Outro',
