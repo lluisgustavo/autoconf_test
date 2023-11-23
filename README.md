@@ -110,7 +110,7 @@ Se preferir, você pode registrar um novo usuário através da página de regist
 
 11. Acesse o aplicativo em [http://localhost:8000](http://localhost:8000).
 
-## Se desejar rodar testes em uma nova database, para manter a integridade dos dados:
+### Se desejar rodar testes em uma nova database, para manter a integridade dos dados:
 
 1. Copie o arquivo `.env.example` e renomeie para `.env.testing`:
 
