@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('founding_year')->nullable();
             $table->string('country_of_origin')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
