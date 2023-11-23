@@ -71,7 +71,13 @@ php artisan key:generate
 php artisan migrate
 ```
 
-8. Compile os Assets do NPM:
+8. Crie o link do storage para o public:
+
+```
+php artisan storage:link
+```
+
+9. Compile os Assets do NPM:
 
 ```
 npm run dev
@@ -83,7 +89,7 @@ ou
 npm run build
 ```
 
-9. Inicie o servidor:
+10. Inicie o servidor:
 
 ```
 php artisan serve
@@ -99,4 +105,4 @@ Isso criará um usuário com o email test@example.com e a senha password.
 
 Se preferir, você pode registrar um novo usuário através da página de registro.
 
-10. Acesse o aplicativo em [http://localhost:8000](http://localhost:8000).
+11. Acesse o aplicativo em [http://localhost:8000](http://localhost:8000).
