@@ -1,37 +1,41 @@
 <?php
 
 namespace App\Http\Controllers;
- 
+
 use App\Http\Requests\StoreVehicleRequest;
-use App\Http\Requests\UpdateVehicleRequest; 
-use App\Models\Vehicle; 
+use App\Http\Requests\UpdateVehicleRequest;
+use App\Models\Vehicle;
+use App\Repositories\MakeRepository;
+use App\Repositories\VehicleModelRepository;
+use App\Repositories\VehicleRepository;
 use App\Services\ImageUploadService;
 use App\Services\VehicleService;
-use App\Repositories\MakeRepository;
-use App\Repositories\VehicleRepository;
-use App\Repositories\VehicleModelRepository;
-use Inertia\Inertia;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class VehicleController extends Controller
 {
-    private $vehicleService; 
-    private $imageUploadService; 
-    private $vehicleRepository; 
-    private $vehicleModelRepository; 
-    private $makeRepository; 
+    private $vehicleService;
+
+    private $imageUploadService;
+
+    private $vehicleRepository;
+
+    private $vehicleModelRepository;
+
+    private $makeRepository;
 
     public function __construct(
-        ImageUploadService $imageUploadService, 
-        VehicleService $vehicleService, 
-        VehicleRepository $vehicleRepository, 
-        VehicleModelRepository $vehicleModelRepository, 
+        ImageUploadService $imageUploadService,
+        VehicleService $vehicleService,
+        VehicleRepository $vehicleRepository,
+        VehicleModelRepository $vehicleModelRepository,
         MakeRepository $makeRepository)
-    {  
+    {
         $this->imageUploadService = $imageUploadService;
         $this->vehicleService = $vehicleService;
-        $this->vehicleRepository = $vehicleRepository; 
+        $this->vehicleRepository = $vehicleRepository;
         $this->vehicleModelRepository = $vehicleModelRepository;
         $this->makeRepository = $makeRepository;
     }
@@ -43,7 +47,7 @@ class VehicleController extends Controller
     {
         $column = $request->get('column', 'id');
         $direction = $request->get('direction', 'asc');
-        $vehicles = $this->vehicleRepository->orderByPaginated($column, $direction);  
+        $vehicles = $this->vehicleRepository->orderByPaginated($column, $direction);
 
         return Inertia::render('Vehicles/Index', [
             'vehicles' => $vehicles,
@@ -54,14 +58,14 @@ class VehicleController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    { 
-        $makesOptions = $this->makeRepository->getOptions(); 
+    {
+        $makesOptions = $this->makeRepository->getOptions();
         $vehicleModelsOptions = $this->vehicleModelRepository->getOptions();
 
-        return Inertia::render('Vehicles/Create', [ 
-            'makesOptions' => $makesOptions, 
+        return Inertia::render('Vehicles/Create', [
+            'makesOptions' => $makesOptions,
             'vehicleModelsOptions' => $vehicleModelsOptions,
-        ]);  
+        ]);
     }
 
     /**
@@ -74,24 +78,24 @@ class VehicleController extends Controller
         $imageFile = $request->file('image_path');
 
         if (isset($imageFile)) {
-            $data['image_path'] = $this->imageUploadService->uploadImage($imageFile); 
-            $vehicle = $this->vehicleService->createVehicle($data); 
+            $data['image_path'] = $this->imageUploadService->uploadImage($imageFile);
+            $vehicle = $this->vehicleService->createVehicle($data);
         }
 
         return redirect()->route('veiculos.index');
-    } 
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Vehicle $veiculo)
-    { 
-        $makesOptions = $this->makeRepository->getOptions(); 
+    {
+        $makesOptions = $this->makeRepository->getOptions();
         $vehicleModelsOptions = $this->vehicleModelRepository->getOptions();
 
         return Inertia::render('Vehicles/Edit', [
-            'vehicle' => $veiculo,  
-            'makesOptions' => $makesOptions, 
+            'vehicle' => $veiculo,
+            'makesOptions' => $makesOptions,
             'vehicleModelsOptions' => $vehicleModelsOptions,
         ]);
     }
@@ -105,7 +109,7 @@ class VehicleController extends Controller
 
         if ($request->hasFile('image_path')) {
             Storage::disk('public')->delete($veiculo->image_path);
-            $data['image_path'] = $this->imageUploadService->uploadImage($request->file('image_path')); 
+            $data['image_path'] = $this->imageUploadService->uploadImage($request->file('image_path'));
         }
 
         $vehicle = $this->vehicleService->updateVehicle($veiculo->id, $data);
@@ -119,6 +123,7 @@ class VehicleController extends Controller
     public function destroy(Vehicle $veiculo)
     {
         $this->vehicleRepository->delete($veiculo->id);
+
         return redirect()->route('veiculos.index');
     }
 }

@@ -4,21 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVehicleModelRequest;
 use App\Http\Requests\UpdateVehicleModelRequest;
-use App\Models\VehicleModel; 
-use App\Services\VehicleModelService;
-use App\Repositories\VehicleModelRepository;
+use App\Models\VehicleModel;
 use App\Repositories\MakeRepository;
-use Inertia\Inertia;
+use App\Repositories\VehicleModelRepository;
+use App\Services\VehicleModelService;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class VehicleModelController extends Controller
 {
-    private $vehicleModelService; 
-    private $vehicleModelRepository; 
-    private $makeRepository; 
+    private $vehicleModelService;
+
+    private $vehicleModelRepository;
+
+    private $makeRepository;
 
     public function __construct(VehicleModelService $vehicleModelService, VehicleModelRepository $vehicleModelRepository, MakeRepository $makeRepository)
-    { 
+    {
         $this->vehicleModelService = $vehicleModelService;
         $this->vehicleModelRepository = $vehicleModelRepository;
         $this->makeRepository = $makeRepository;
@@ -31,11 +33,11 @@ class VehicleModelController extends Controller
     {
         $column = $request->get('column', 'id');
         $direction = $request->get('direction', 'asc');
-        $vehicleModels = $this->vehicleModelRepository->orderByPaginated($column, $direction); 
-    
+        $vehicleModels = $this->vehicleModelRepository->orderByPaginated($column, $direction);
+
         return Inertia::render('VehicleModels/Index', [
             'vehicleModels' => $vehicleModels,
-        ]); 
+        ]);
     }
 
     /**
@@ -43,11 +45,11 @@ class VehicleModelController extends Controller
      */
     public function create()
     {
-        $makesOptions = $this->makeRepository->getOptions(); 
+        $makesOptions = $this->makeRepository->getOptions();
 
         return Inertia::render('VehicleModels/Create', [
             'makesOptions' => $makesOptions,
-        ]);  
+        ]);
     }
 
     /**
@@ -56,17 +58,17 @@ class VehicleModelController extends Controller
     public function store(StoreVehicleModelRequest $request)
     {
         $data = $request->validated();
-        $vehicleModel = $this->vehicleModelService->createVehicleModel($data); 
+        $vehicleModel = $this->vehicleModelService->createVehicleModel($data);
 
         return redirect()->route('modelos.index');
-    } 
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(VehicleModel $modelo)
     {
-        $makesOptions = $this->makeRepository->getOptions(); 
+        $makesOptions = $this->makeRepository->getOptions();
 
         return Inertia::render('VehicleModels/Edit', [
             'makesOptions' => $makesOptions,
@@ -91,6 +93,7 @@ class VehicleModelController extends Controller
     public function destroy(VehicleModel $modelo)
     {
         $this->vehicleModelRepository->delete($modelo->id);
+
         return redirect()->route('modelos.index');
     }
 }

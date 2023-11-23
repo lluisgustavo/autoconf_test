@@ -5,18 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMakeRequest;
 use App\Http\Requests\UpdateMakeRequest;
 use App\Models\Make;
-use App\Services\MakeService;
 use App\Repositories\MakeRepository;
-use Inertia\Inertia;
+use App\Services\MakeService;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class MakeController extends Controller
 {
-    private $makeService; 
-    private $makeRepository; 
+    private $makeService;
+
+    private $makeRepository;
 
     public function __construct(MakeService $makeService, MakeRepository $makeRepository)
-    { 
+    {
         $this->makeService = $makeService;
         $this->makeRepository = $makeRepository;
     }
@@ -25,11 +26,11 @@ class MakeController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    { 
+    {
         $column = $request->get('column', 'id');
         $direction = $request->get('direction', 'asc');
         $makes = $this->makeRepository->orderByPaginated($column, $direction);
-    
+
         return Inertia::render('Makes/Index', [
             'makes' => $makes,
         ]);
@@ -46,20 +47,19 @@ class MakeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-        
     public function store(StoreMakeRequest $request)
-    { 
+    {
         $data = $request->validated();
-        $make = $this->makeService->createMake($data); 
+        $make = $this->makeService->createMake($data);
 
         return redirect()->route('marcas.index');
-    } 
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Make $marca)
-    {   
+    {
         return Inertia::render('Makes/Edit', [
             'make' => $marca,
         ]);
@@ -69,7 +69,7 @@ class MakeController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateMakeRequest $request, Make $marca)
-    { 
+    {
         $data = $request->validated();
         $make = $this->makeService->updateMake($marca->id, $data);
 
@@ -80,8 +80,9 @@ class MakeController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Make $marca)
-    { 
+    {
         $this->makeRepository->delete($marca->id);
+
         return redirect()->route('marcas.index');
     }
 }
