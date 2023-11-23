@@ -1,91 +1,75 @@
-import { useState, createContext, useContext, Fragment } from 'react';
-import { Link } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
+import { Link } from "@inertiajs/react";
+import { Transition } from "@headlessui/react";
+import { Menu } from "@headlessui/react";
 
-const DropDownContext = createContext();
-
-const Dropdown = ({ children }) => {
-    const [open, setOpen] = useState(false);
-
-    const toggleOpen = () => {
-        setOpen((previousState) => !previousState);
-    };
+const Item = ({ href, title, method = "GET", as }) => {
+    const baseClasses = `block w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 transition duration-150 ease-in-out focus:outline-none dark:focus:text-white dark:focus:bg-dark-eval-3 dark:text-gray-400`;
 
     return (
-        <DropDownContext.Provider value={{ open, setOpen, toggleOpen }}>
-            <div className="relative">{children}</div>
-        </DropDownContext.Provider>
-    );
-};
-
-const Trigger = ({ children }) => {
-    const { open, setOpen, toggleOpen } = useContext(DropDownContext);
-
-    return (
-        <>
-            <div onClick={toggleOpen}>{children}</div>
-
-            {open && <div className="fixed inset-0 z-40" onClick={() => setOpen(false)}></div>}
-        </>
-    );
-};
-
-const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-white', children }) => {
-    const { open, setOpen } = useContext(DropDownContext);
-
-    let alignmentClasses = 'origin-top';
-
-    if (align === 'left') {
-        alignmentClasses = 'ltr:origin-top-left rtl:origin-top-right start-0';
-    } else if (align === 'right') {
-        alignmentClasses = 'ltr:origin-top-right rtl:origin-top-left end-0';
-    }
-
-    let widthClasses = '';
-
-    if (width === '48') {
-        widthClasses = 'w-48';
-    }
-
-    return (
-        <>
-            <Transition
-                as={Fragment}
-                show={open}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-            >
-                <div
-                    className={`absolute z-50 mt-2 rounded-md shadow-lg ${alignmentClasses} ${widthClasses}`}
-                    onClick={() => setOpen(false)}
+        <Menu.Item>
+            {({ active, disabled }) => (
+                <Link
+                    href={href}
+                    method={method}
+                    as={as}
+                    className={`${baseClasses} ${
+                        active &&
+                        "bg-gray-100 dark:text-gray-200 dark:bg-dark-eval-3"
+                    } ${disabled && "pointer-events-none"}`}
                 >
-                    <div className={`rounded-md ring-1 ring-black ring-opacity-5 ` + contentClasses}>{children}</div>
-                </div>
-            </Transition>
-        </>
+                    {title}
+                </Link>
+            )}
+        </Menu.Item>
     );
 };
 
-const DropdownLink = ({ className = '', children, ...props }) => {
+const Dropdown = ({
+    children,
+    trigger,
+    align = "right",
+    width = "48",
+    contentClasses = "py-1 bg-white dark:bg-dark-eval-1",
+}) => {
+    let alignmentClasses = "origin-top";
+
+    if (align === "left") {
+        alignmentClasses = "origin-top-left left-0";
+    } else if (align === "right") {
+        alignmentClasses = "origin-top-right right-0";
+    }
+
+    let widthClasses = "";
+
+    if (width === "48") {
+        widthClasses = "w-48";
+    }
+
     return (
-        <Link
-            {...props}
-            className={
-                'block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out ' +
-                className
-            }
-        >
-            {children}
-        </Link>
+        <Menu as="div" className="relative">
+            <Menu.Button as="span">{trigger}</Menu.Button>
+
+            <Transition
+                enter="transition ease-out duration-200"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leaveactive="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+            >
+                <Menu.Items
+                    className={`absolute z-50 mt-2 rounded-md shadow-lg ${alignmentClasses} ${widthClasses}`}
+                >
+                    <div
+                        className={`rounded-md ring-1 ring-black ring-opacity-5 ${contentClasses}`}
+                    >
+                        {children}
+                    </div>
+                </Menu.Items>
+            </Transition>
+        </Menu>
     );
 };
 
-Dropdown.Trigger = Trigger;
-Dropdown.Content = Content;
-Dropdown.Link = DropdownLink;
-
+Dropdown.Item = Item;
 export default Dropdown;
