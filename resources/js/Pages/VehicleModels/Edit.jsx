@@ -77,7 +77,7 @@ const VehicleModelsEdit = (props) => {
                             onChange={(selectedOption) =>
                                 setData(
                                     "make_id",
-                                    selectedOption ? selectedOption.value : null
+                                    selectedOption ? selectedOption.value : ""
                                 )
                             }
                             placeholder="Selecione"
@@ -131,7 +131,7 @@ const VehicleModelsEdit = (props) => {
                             onChange={(selectedOption) =>
                                 setData(
                                     "fuel_type",
-                                    selectedOption ? selectedOption.value : null
+                                    selectedOption ? selectedOption.value : ""
                                 )
                             }
                             placeholder="Selecione"
@@ -150,7 +150,7 @@ const VehicleModelsEdit = (props) => {
                             onChange={(selectedOption) =>
                                 setData(
                                     "type",
-                                    selectedOption ? selectedOption.value : null
+                                    selectedOption ? selectedOption.value : ""
                                 )
                             }
                             placeholder="Selecione"

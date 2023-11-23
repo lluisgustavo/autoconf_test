@@ -128,7 +128,7 @@ const MakesEdit = (props) => {
                             onChange={(selectedOption) =>
                                 setData(
                                     "country_of_origin",
-                                    selectedOption.value
+                                    selectedOption ? selectedOption.value : ""
                                 )
                             }
                             placeholder="Selecione"
