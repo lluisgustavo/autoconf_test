@@ -2,7 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\FormRequest;  
+use Illuminate\Validation\Rule;
 
 class UpdateMakeRequest extends FormRequest
 {
@@ -20,12 +21,15 @@ class UpdateMakeRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
+    {  
+        $makeId = $this->route()->marca->id;
+        
         return [
             'name' => [
+                'required',
                 'string',
                 'max:255',
-                'unique:makes',
+                Rule::unique('makes')->ignore($makeId),
             ],
             'description' => 'nullable|string',
             'founding_year' => 'nullable|integer|min:1850',
