@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('vehicle_models', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('make_id')->constrained(); 
+            $table->foreignId('make_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->year('manufacturing_year');
             $table->enum('fuel_type', ['Gasolina', 'Diesel', 'Elétrico', 'Híbrido', 'GNV', 'Flex', 'Etanol', 'Outros']);
-            $table->enum('type', ['Carro', 'Motocicleta', 'Caminhão', 'Outro']); 
+            $table->enum('type', ['Carro', 'Motocicleta', 'Caminhão', 'Outro']);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
