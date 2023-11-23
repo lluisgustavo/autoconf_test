@@ -1,9 +1,8 @@
-<?php 
+<?php
 
 namespace App\Services;
 
 use App\Repositories\VehicleRepository;
-use App\Models\Vehicle;
 
 class VehicleService
 {
@@ -15,16 +14,17 @@ class VehicleService
     }
 
     public function createVehicle(array $data)
-    { 
+    {
         return $this->vehicleRepository->create($data);
     }
+
     public function updateVehicle(int $id, array $data)
-    { 
+    {
         return $this->vehicleRepository->update($id, $data);
     }
 
     public function deleteVehicle(int $id)
-    { 
+    {
         return $this->vehicleRepository->delete($id);
     }
 }
