@@ -20,11 +20,83 @@ O objetivo deste projeto é avaliar as habilidades em desenvolvimento web backen
 -   [Breeze](https://laravel.com/docs/10.x/starter-kits#laravel-breeze): Um starter kit leve do Laravel para autenticação.
 -   [InertiaJS](https://inertiajs.com/): uma abordagem para construir aplicativos da web de página única (SPA) de maneira mais simplificada.
 -   [Tailwind CSS](https://tailwindcss.com/): Um framework CSS altamente personalizável que fornece classes utilitárias para construir rapidamente componentes de interface do usuário.
--   [PostgreSQL](https://www.postgresql.org/):
+-   [PostgreSQL](https://www.postgresql.org/): Sistema de gerenciamento de banco de dados relacional open source.
 -   [Conventional Commits](https://www.conventionalcommits.org/): Uma especificação para escrever mensagens de commit padronizadas.
+-   [K UI Breeze Starter](https://github.com/Kamona-WD/kui-laravel-breeze): Um layout utilizado.
 
 ## Práticas de Desenvolvimento
 
 -   Conventional Commits: Este projeto segue o formato [Conventional Commits](https://www.conventionalcommits.org/) para mensagens de commit. Isso ajuda a gerar um histórico de commits claro e padronizado.
 
 ## Configuração/Primeiros Passos
+
+To create the app, we will be utilizing the Marvel API. Follow the steps below to set up your development environment:
+
+1. Clone o repositório:
+
+```
+git clone https://github.com/lluisgustavo/autoconf_test.git
+```
+
+2. Instale as dependências do composer:
+
+```
+cd autoconf_test
+composer install
+```
+
+3. Instale as dependências do NPM:
+
+```
+npm install
+```
+
+4. Copie o arquivo `.env.example` e renomeie para `.env`:
+
+```
+cp .env.example .env
+```
+
+5. Configure as variáveis de ambiente conforme suas configurações do banco de dados:
+
+6. Gere a chave de aplicativo:
+
+```
+php artisan key:generate
+```
+
+7. Execute as migrations:
+
+```
+php artisan migrate
+```
+
+8. Compile os Assets do NPM:
+
+```
+npm run dev
+```
+
+ou
+
+```
+npm run build
+```
+
+9. Inicie o servidor:
+
+```
+php artisan serve
+```
+
+Se você deseja criar rapidamente um usuário padrão para fins de teste, pode usar o seguinte comando Artisan:
+
+```
+php artisan db:seed
+```
+
+Isso criará um usuário com o email test@example.com e a senha password.
+
+Se preferir, você pode registrar um novo usuário através da página de registro.
+
+10. Acesse o aplicativo em [http://localhost:8000](http://localhost:8000).
