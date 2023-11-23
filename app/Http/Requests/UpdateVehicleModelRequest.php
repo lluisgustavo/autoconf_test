@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\IgnoreSoftDeleted;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateVehicleModelRequest extends FormRequest
@@ -22,15 +21,13 @@ class UpdateVehicleModelRequest extends FormRequest
      */
     public function rules(): array
     {
-        $vehicleModelId = $this->route('modelo')->id;
-
         return [
             'make_id' => 'required|exists:makes,id',
             'name' => [
                 'required',
                 'string',
                 'max:255',
-                new IgnoreSoftDeleted('vehicle_models', 'name'),
+                'unique:vehicle_models',
             ],
             'manufacturing_year' => 'required|integer|min:1850',
             'fuel_type' => 'required|in:Gasolina,Diesel,Elétrico,GNV,Flex,Etanol,Híbrido,Outro',
