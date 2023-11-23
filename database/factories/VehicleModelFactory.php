@@ -18,7 +18,7 @@ class VehicleModelFactory extends Factory
     public function definition(): array
     {
         $makesIDs = DB::table('makes')->pluck('id');
- 
+
         return [
             'id' => fake()->unique()->randomNumber(),
             'make_id' => fake()->randomElement($makesIDs),
