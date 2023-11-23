@@ -2,12 +2,10 @@
 
 namespace Tests\Feature\Factory;
 
-use App\Models\User;
 use App\Models\Make;
-use App\Models\VehicleModel;
+use App\Models\User;
 use App\Models\Vehicle;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\VehicleModel;
 use Tests\TestCase;
 
 class FactoryTest extends TestCase
@@ -25,8 +23,7 @@ class FactoryTest extends TestCase
             dump($th->getMessage());
         }
 
-
-        try { 
+        try {
             $initialMakeCount = Make::query()->count();
             Make::factory(5)->create();
             $finalMakeCount = Make::query()->count();
@@ -41,7 +38,7 @@ class FactoryTest extends TestCase
         } catch (\Throwable $th) {
             dump($th->getMessage());
         }
-        
+
         try {
             $initialVehicleCount = Vehicle::query()->count();
             Vehicle::factory(5)->create();
@@ -51,13 +48,13 @@ class FactoryTest extends TestCase
         }
 
         dump(
-            "Users: ". User::query()->count(),
-            "Makes: ". Make::query()->count(), 
-            "Models: ". Make::query()->count(), 
-            "Vehicles: ". Make::query()->count(), 
+            'Users: '.User::query()->count(),
+            'Makes: '.Make::query()->count(),
+            'Models: '.Make::query()->count(),
+            'Vehicles: '.Make::query()->count(),
         );
 
-        $this->assertEquals($initialUserCount + 5, $finalUserCount, 'Expected user count to increase by 5.'); 
+        $this->assertEquals($initialUserCount + 5, $finalUserCount, 'Expected user count to increase by 5.');
         $this->assertEquals($initialMakeCount + 5, $finalMakeCount, 'Expected makes count to increase by 5.');
         $this->assertEquals($initialVehicleModelCount + 5, $finalVehicleModelCount, 'Expected models count to increase by 5.');
         $this->assertEquals($initialVehicleCount + 5, $finalVehicleCount, 'Expected vehicles count to increase by 5.');
